@@ -13,6 +13,7 @@ public class Quiz {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long quizId;
+//    {quizTemplateId:1,questionNumber;2,questionType:"string", quizQuestion:"string"}
     private Long quizTemplateId;
     private int questionNumber;
     private String questionType;

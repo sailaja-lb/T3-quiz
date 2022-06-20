@@ -21,6 +21,9 @@ public class QuizServices {
         repository.save(newQuizCreated);
         return newQuizCreated;
     }
+    public Quiz createQuizA(Quiz quiz){
+        return repository.save(quiz);
+    }
 
     public void editQuiz(Long quizId, String question, String questionType){
         Optional<Quiz> findQuiz = repository.findById(quizId);
@@ -38,9 +41,9 @@ public class QuizServices {
         repository.deleteById(quizId);
     }
 
-    public void deleteQuiz(Quiz currentQuiz){
+    public void deleteQuiz(Long quizTempId){
 
-        repository.delete(currentQuiz);
+        repository.deleteById(quizTempId);
     }
 
     public Iterable<Quiz> getAllQuizzes(){
