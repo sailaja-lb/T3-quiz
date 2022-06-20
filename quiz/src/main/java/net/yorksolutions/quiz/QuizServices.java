@@ -34,4 +34,17 @@ public class QuizServices {
         }
     }
 
+    public void deleteQuestion(Long quizId){
+        repository.deleteById(quizId);
+    }
+
+    public void deleteQuiz(Quiz currentQuiz){
+
+        repository.delete(currentQuiz);
+    }
+
+    public Iterable<Quiz> getAllQuizzes(){
+        return repository.findAll();
+    }
+
 }
