@@ -32,7 +32,7 @@ public class QuizServices {
         }else{
             Quiz currentQuiz = findQuiz.get();
             currentQuiz.setQuizQuestion(question);
-            currentQuiz.setQuizQuestion(questionType);
+            currentQuiz.setQuestionType(questionType);
             repository.save(currentQuiz);
         }
     }
