@@ -16,15 +16,15 @@ public class Quiz {
     private Long quizTemplateId;
     private int questionNumber;
     private String questionType;
-    private String question;
+    private String quizQuestion;
 
     public Quiz(){
 
     }
-    public Quiz(Long quizTemplateId, int questionNumber, String question, String questionType){
+    public Quiz(Long quizTemplateId, int questionNumber, String quizQuestion, String questionType){
        this.quizTemplateId = quizTemplateId;
        this.questionNumber = questionNumber;
-       this.question = question;
+       this.quizQuestion = quizQuestion;
        this.questionType = questionType;
     }
 
@@ -44,8 +44,8 @@ public class Quiz {
         return questionType;
     }
 
-    public String getQuestion() {
-        return question;
+    public String getQuizQuestion() {
+        return quizQuestion;
     }
     public void setId(Long id) {
         this.id = id;
@@ -63,8 +63,8 @@ public class Quiz {
         this.questionType = questionType;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
+    public void setQuizQuestion(String quizQuestion) {
+        this.quizQuestion = quizQuestion;
     }
 
     @Override
@@ -72,11 +72,11 @@ public class Quiz {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Quiz quiz = (Quiz) o;
-        return questionNumber == quiz.questionNumber && Objects.equals(id, quiz.id) && Objects.equals(quizTemplateId, quiz.quizTemplateId) && Objects.equals(questionType, quiz.questionType) && Objects.equals(question, quiz.question);
+        return questionNumber == quiz.questionNumber && Objects.equals(id, quiz.id) && Objects.equals(quizTemplateId, quiz.quizTemplateId) && Objects.equals(questionType, quiz.questionType) && Objects.equals(quizQuestion, quiz.quizQuestion);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, quizTemplateId, questionNumber, questionType, question);
+        return Objects.hash(id, quizTemplateId, questionNumber, questionType, quizQuestion);
     }
 }
