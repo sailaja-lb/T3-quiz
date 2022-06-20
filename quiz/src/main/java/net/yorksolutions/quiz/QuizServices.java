@@ -22,8 +22,8 @@ public class QuizServices {
         return newQuizCreated;
     }
 
-    public void editQuiz(Long id, String question, String questionType){
-        Optional<Quiz> findQuiz = repository.findById(id);
+    public void editQuiz(Long quizId, String question, String questionType){
+        Optional<Quiz> findQuiz = repository.findById(quizId);
         if (findQuiz.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }else{

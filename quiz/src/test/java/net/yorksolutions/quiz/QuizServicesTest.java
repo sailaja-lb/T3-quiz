@@ -6,6 +6,8 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 
 import java.util.Optional;
@@ -40,7 +42,7 @@ class QuizServicesTest {
         String question = "update question";
         String questionType = "update text";
         Quiz expectedEditQuiz = new Quiz(quizTempId, questionNumber, "old question", "old text");
-        Long id = expectedEditQuiz.getId();
+        Long id = expectedEditQuiz.getQuizId();
         when(repository.findById(id)).thenReturn(Optional.of(expectedEditQuiz));
         ArgumentCaptor<Quiz> captor = ArgumentCaptor.forClass(Quiz.class);
         when(repository.save(captor.capture())).thenReturn(expectedEditQuiz);
@@ -50,7 +52,16 @@ class QuizServicesTest {
 
     @Test
     void itShouldThrowNotFoundWhenIDIsNotInTheDatabase(){
-
+        Long quizTempId = 0L;
+        int questionNumber = 1;
+        String question = "update question";
+        String questionType = "update text";
+        Quiz expectedEditQuiz = new Quiz(quizTempId, questionNumber, "old question", "old text");
+        Long id = expectedEditQuiz.getQuizId();
+        when(repository.findById(id)).thenReturn(Optional.empty());
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
+                () -> service.editQuiz(id, question, questionType));
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatus());
     }
 
 
