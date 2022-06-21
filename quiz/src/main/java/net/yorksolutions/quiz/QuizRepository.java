@@ -11,6 +11,6 @@ public interface QuizRepository extends CrudRepository<Quiz, Long> {
     //Optional<Quiz> findByQuizTemplateId(Long quizTemplateId);
     @Transactional
     Iterable<Quiz> deleteAllByQuizTemplateId(Long quizTemplateId);
-    Iterable<Quiz> findAllByQuizTemplateIdAscQuestionNumberAsc();
+    Iterable<Quiz> findAllByOrderByQuizTemplateIdAscQuestionNumberAsc();
 
 }
