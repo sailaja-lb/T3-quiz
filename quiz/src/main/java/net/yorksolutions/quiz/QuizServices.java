@@ -47,7 +47,7 @@ public class QuizServices {
     }
 
     public Iterable<Quiz> getAllQuizzes() {
-        return repository.findAll();
+        return repository.findAllByQuizTemplateIdAscQuestionNumberAsc();
     }
 
 }
