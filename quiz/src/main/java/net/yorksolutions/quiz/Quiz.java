@@ -12,29 +12,29 @@ public class Quiz {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long quizId;
+    private Long questionId;
 
     private Long quizTemplateId;
     private int questionNumber;
     private String questionType;
-    private String quizQuestion;
+    private String questionText;
 
     public Quiz(){
 
     }
-    public Quiz(Long quizTemplateId, int questionNumber, String quizQuestion, String questionType){
+    public Quiz(Long quizTemplateId, int questionNumber, String questionText, String questionType){
        this.quizTemplateId = quizTemplateId;
        this.questionNumber = questionNumber;
-       this.quizQuestion = quizQuestion;
+       this.questionText = questionText;
        this.questionType = questionType;
     }
 
-    public Long getQuizId() {
-        return quizId;
+    public Long getQuestionId() {
+        return questionId;
     }
 
-    public void setQuizId(Long quizId) {
-        this.quizId = quizId;
+    public void setQuestionId(Long questionId) {
+        this.questionId = questionId;
     }
 
     public Long getQuizTemplateId() {
@@ -61,12 +61,12 @@ public class Quiz {
         this.questionType = questionType;
     }
 
-    public String getQuizQuestion() {
-        return quizQuestion;
+    public String getQuestionText() {
+        return questionText;
     }
 
-    public void setQuizQuestion(String quizQuestion) {
-        this.quizQuestion = quizQuestion;
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
     }
 
     @Override
@@ -74,11 +74,11 @@ public class Quiz {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Quiz quiz = (Quiz) o;
-        return questionNumber == quiz.questionNumber && Objects.equals(quizId, quiz.quizId) && Objects.equals(quizTemplateId, quiz.quizTemplateId) && Objects.equals(questionType, quiz.questionType) && Objects.equals(quizQuestion, quiz.quizQuestion);
+        return questionNumber == quiz.questionNumber && Objects.equals(questionId, quiz.questionId) && Objects.equals(quizTemplateId, quiz.quizTemplateId) && Objects.equals(questionType, quiz.questionType) && Objects.equals(questionText, quiz.questionText);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(quizId, quizTemplateId, questionNumber, questionType, quizQuestion);
+        return Objects.hash(questionId, quizTemplateId, questionNumber, questionType, questionText);
     }
 }

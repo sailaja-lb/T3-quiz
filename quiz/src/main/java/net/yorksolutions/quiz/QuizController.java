@@ -16,8 +16,8 @@ public class QuizController {
 
     @GetMapping("/createQuiz")
     @CrossOrigin
-    public Quiz createQuiz(@RequestParam Long quizTempId, @RequestParam int questionNumber, @RequestParam String question, @RequestParam String questionType){
-        return service.createQuiz(quizTempId, questionNumber, question, questionType);
+    public Quiz createQuiz(@RequestParam Long quizTempId, @RequestParam int questionNumber, @RequestParam String questionText, @RequestParam String questionType){
+        return service.createQuiz(quizTempId, questionNumber, questionText, questionType);
     }
 
     @PostMapping("/createQuizA")
@@ -28,20 +28,20 @@ public class QuizController {
 
     @GetMapping("/editQuiz")
     @CrossOrigin
-    public void editQuiz(@RequestParam Long quizId, @RequestParam String question, @RequestParam String questionType){
-        service.editQuiz(quizId, question, questionType);
+    public void editQuiz(@RequestParam Long questionId, @RequestParam String questionText, @RequestParam String questionType){
+        service.editQuiz(questionId, questionText, questionType);
     }
 
     @GetMapping("/deleteQuestion")
     @CrossOrigin
-    public void deleteQuestion(@RequestParam Long quizId){
-        service.deleteQuestion(quizId);
+    public void deleteQuestion(@RequestParam Long questionId){
+        service.deleteQuestion(questionId);
     }
 
     @GetMapping("/deleteQuiz")
     @CrossOrigin
-    public void deleteQuiz(@RequestParam Long quizTempId){
-        service.deleteQuiz(quizTempId);
+    public void deleteQuiz(@RequestParam Long questionId){
+        service.deleteQuiz(questionId);
     }
 
     @GetMapping("/getAllQuizzes")

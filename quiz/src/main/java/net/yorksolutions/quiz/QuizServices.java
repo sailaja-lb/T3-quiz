@@ -16,8 +16,8 @@ public class QuizServices {
         this.repository = repository;
     }
 
-    public Quiz createQuiz(Long quizTempId, int questionNumber, String question, String questionType) {
-        Quiz newQuizCreated = new Quiz(quizTempId, questionNumber, question, questionType);
+    public Quiz createQuiz(Long quizTempId, int questionNumber, String questionText, String questionType) {
+        Quiz newQuizCreated = new Quiz(quizTempId, questionNumber, questionText, questionType);
         repository.save(newQuizCreated);
         return newQuizCreated;
     }
@@ -25,13 +25,13 @@ public class QuizServices {
         return repository.save(quiz);
     }
 
-    public void editQuiz(Long quizId, String question, String questionType){
+    public void editQuiz(Long quizId, String questionText, String questionType){
         Optional<Quiz> findQuiz = repository.findById(quizId);
         if (findQuiz.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }else{
             Quiz currentQuiz = findQuiz.get();
-            currentQuiz.setQuizQuestion(question);
+            currentQuiz.setQuestionText(questionText);
             currentQuiz.setQuestionType(questionType);
             repository.save(currentQuiz);
         }
@@ -41,9 +41,16 @@ public class QuizServices {
         repository.deleteById(quizId);
     }
 
-    public void deleteQuiz(Long quizTempId){
+    public void deleteQuiz(Long quizId){
+        Optional<Quiz> existingQuiz = repository.findByQuizTemplateId(quizId);
 
-        repository.deleteById(quizTempId);
+        if (existingQuiz.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }else{
+            Long quizTemplateId = existingQuiz.get().getQuizTemplateId();
+            //Quiz quizTemplateId = existingQuiz.get();
+            repository.deleteById(quizTemplateId);
+        }
     }
 
     public Iterable<Quiz> getAllQuizzes(){

@@ -7,6 +7,5 @@ import java.util.Optional;
 
 @Repository
 public interface QuizRepository extends CrudRepository<Quiz, Long> {
-
-    Optional<Quiz> findById(Long id);
+    Optional<Quiz> findByQuizTemplateId(Long quizTemplateId);
 }
