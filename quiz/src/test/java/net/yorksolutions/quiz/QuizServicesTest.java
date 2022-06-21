@@ -1,5 +1,6 @@
 package net.yorksolutions.quiz;
 
+import com.sun.xml.bind.v2.model.core.ID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -10,11 +11,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class QuizServicesTest {
@@ -24,15 +26,12 @@ class QuizServicesTest {
     @Mock
     QuizRepository repository;
 
+
     @Test
-    void itShouldAddAQuizWhenAddQuiz(){
-        Long quizTempId = 0L;
-        int questionNumber = 1;
-        String question = "some question";
-        String questionType = "text";
-        Quiz expectedQuiz = new Quiz(quizTempId, questionNumber, question, questionType);
-        when(repository.save(expectedQuiz)).thenReturn(new Quiz());
-        //assertEquals(expectedQuiz, service.createQuiz(quizTempId, questionNumber, question, questionType));
+    void itShouldCreateQuizAndSaveInRepository(){
+        Quiz expectedQuiz = new Quiz();
+        service.createQuiz(expectedQuiz);
+        verify(repository).save(expectedQuiz);
     }
 
     @Test
@@ -63,8 +62,41 @@ class QuizServicesTest {
                 () -> service.editQuiz(id, question, questionType));
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatus());
     }
+    @Test
+    void itShouldRemoveAQuestionFromRepositoryWhenDeleteById(){
+        final Long questionId = 0L;
+        doNothing().when(repository).deleteById(questionId);
+        service.deleteQuestion(questionId);
+        verify(repository).deleteById(questionId);
+    }
 
+    @Test
+    void itShouldRemoveAllQuizTempIdFromRepositoryWhenDeleteAllByQuizTemplateId(){
+        Long quizTempId = 0L;
+        int questionNumber = 1;
+        String questionText = "some question";
+        String questionType = "text";
+        Quiz someQuiz = new Quiz(quizTempId, questionNumber, questionText, questionType);
+        ArrayList<Quiz> expectedQuiz = new ArrayList<>();
+        when(repository.deleteAllByQuizTemplateId(quizTempId)).thenReturn(expectedQuiz);
+        service.deleteQuiz(quizTempId);
+        verify(repository).deleteAllByQuizTemplateId(quizTempId);
+    }
 
+    @Test
+    void itShouldFindAllQuizTempIdAndQuestionNumberInAscendingOrder(){
+        Long quizTempId = 0L;
+        int questionNumber = 1;
+        String questionText = "some question";
+        String questionType = "text";
+        Quiz someQuiz = new Quiz(quizTempId, questionNumber, questionText, questionType);
+        ArrayList<Quiz> expectedQuiz = new ArrayList<>();
+        expectedQuiz.add(someQuiz);
+        ArgumentCaptor<Long> captor = ArgumentCaptor.forClass(Long.class);
+        when(repository.findAllByOrderByQuizTemplateIdAscQuestionNumberAsc()).thenReturn(expectedQuiz);
+        Iterable<Quiz> result = service.getAllQuizzes();
+        assertEquals(expectedQuiz, result);
+    }
 
 
 }
