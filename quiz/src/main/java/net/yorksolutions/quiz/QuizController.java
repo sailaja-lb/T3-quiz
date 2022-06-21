@@ -10,43 +10,48 @@ public class QuizController {
     final private QuizServices service;
 
     @Autowired
-    public QuizController(@NonNull QuizServices service){
+    public QuizController(@NonNull QuizServices service) {
         this.service = service;
     }
 
     @GetMapping("/createQuiz")
     @CrossOrigin
-    public Quiz createQuiz(@RequestParam Long quizTempId, @RequestParam int questionNumber, @RequestParam String questionText, @RequestParam String questionType){
-        return service.createQuiz(quizTempId, questionNumber, questionText, questionType);
+    public Iterable<Quiz> createQuiz(@RequestParam Long quizTempId, @RequestParam int questionNumber, @RequestParam String questionText, @RequestParam String questionType) {
+        service.createQuiz(quizTempId, questionNumber, questionText, questionType);
+        return service.getAllQuizzes();
     }
 
     @PostMapping("/createQuizA")
     @CrossOrigin
-    public Quiz createQuizA(@RequestBody Quiz quiz){
-        return service.createQuizA(quiz);
+    public Iterable<Quiz> createQuizA(@RequestBody Quiz quiz) {
+        service.createQuizA(quiz);
+        return service.getAllQuizzes();
     }
 
     @GetMapping("/editQuiz")
     @CrossOrigin
-    public void editQuiz(@RequestParam Long questionId, @RequestParam String questionText, @RequestParam String questionType){
+    public Iterable<Quiz> editQuiz(@RequestParam Long questionId, @RequestParam String questionText, @RequestParam String questionType) {
         service.editQuiz(questionId, questionText, questionType);
+        return service.getAllQuizzes();
     }
 
     @GetMapping("/deleteQuestion")
     @CrossOrigin
-    public void deleteQuestion(@RequestParam Long questionId){
+    public Iterable<Quiz> deleteQuestion(@RequestParam Long questionId) {
         service.deleteQuestion(questionId);
+        return service.getAllQuizzes();
     }
 
-    @GetMapping("/deleteQuiz")
+    @DeleteMapping("/deleteQuiz/{quizTemplateId}")
     @CrossOrigin
-    public void deleteQuiz(@RequestParam Long questionId){
-        service.deleteQuiz(questionId);
+    public Iterable<Quiz> deleteQuiz(@PathVariable("quizTemplateId") Long quizTempId) {
+        service.deleteQuiz(quizTempId);
+        return service.getAllQuizzes();
     }
 
     @GetMapping("/getAllQuizzes")
     @CrossOrigin
-    public Iterable<Quiz> getAllQuizzes(){
+    public Iterable<Quiz> getAllQuizzes() {
         return service.getAllQuizzes();
     }
 
