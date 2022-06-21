@@ -16,11 +16,7 @@ public class QuizServices {
         this.repository = repository;
     }
 
-    public void createQuiz(Long quizTempId, int questionNumber, String questionText, String questionType) {
-        Quiz newQuizCreated = new Quiz(quizTempId, questionNumber, questionText, questionType);
-        repository.save(newQuizCreated);
-    }
-    public void createQuizA(Quiz quiz) {
+    public void createQuiz(Quiz quiz) {
         repository.save(quiz);
     }
 

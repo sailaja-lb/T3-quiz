@@ -14,17 +14,10 @@ public class QuizController {
         this.service = service;
     }
 
-    @GetMapping("/createQuiz")
+    @PostMapping("/createQuiz")
     @CrossOrigin
-    public Iterable<Quiz> createQuiz(@RequestParam Long quizTempId, @RequestParam int questionNumber, @RequestParam String questionText, @RequestParam String questionType) {
-        service.createQuiz(quizTempId, questionNumber, questionText, questionType);
-        return service.getAllQuizzes();
-    }
-
-    @PostMapping("/createQuizA")
-    @CrossOrigin
-    public Iterable<Quiz> createQuizA(@RequestBody Quiz quiz) {
-        service.createQuizA(quiz);
+    public Iterable<Quiz> createQuiz(@RequestBody Quiz quiz) {
+        service.createQuiz(quiz);
         return service.getAllQuizzes();
     }
 
@@ -35,9 +28,9 @@ public class QuizController {
         return service.getAllQuizzes();
     }
 
-    @GetMapping("/deleteQuestion")
+    @DeleteMapping("/deleteQuestion/{questionId}")
     @CrossOrigin
-    public Iterable<Quiz> deleteQuestion(@RequestParam Long questionId) {
+    public Iterable<Quiz> deleteQuestion(@PathVariable("questionId") Long questionId) {
         service.deleteQuestion(questionId);
         return service.getAllQuizzes();
     }
