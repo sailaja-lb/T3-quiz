@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/")
 public class QuizController {
-    final private QuizServices service;
+    private QuizServices service;
 
     @Autowired
     public QuizController(@NonNull QuizServices service) {
@@ -48,4 +48,7 @@ public class QuizController {
         return service.getAllQuizzes();
     }
 
+    public void setService(QuizServices service) {
+        this.service = service;
+    }
 }

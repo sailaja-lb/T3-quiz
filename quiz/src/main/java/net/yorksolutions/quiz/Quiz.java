@@ -1,10 +1,11 @@
 package net.yorksolutions.quiz;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import net.bytebuddy.implementation.bind.annotation.AllArguments;
+
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
