@@ -36,10 +36,14 @@ public class QuizServices {
         repository.deleteById(questionId);
     }
 
-    public void deleteQuiz(Long quizTempId) {
+    public void deleteQuiz(Long quizTemplateId) {
 
-        repository.deleteAllByQuizTemplateId(quizTempId);
+        repository.deleteAllByQuizTemplateId(quizTemplateId);
 
+    }
+    public void getQuizToRespond(Long quizTemplateId){
+
+        repository.findByQuizTemplateIdOrderByQuestionNumberAsc(quizTemplateId);
     }
 
     public Iterable<Quiz> getAllQuizzes() {

@@ -42,6 +42,13 @@ public class QuizController {
         return service.getAllQuizzes();
     }
 
+    @GetMapping("/getQuizToRespond")
+    @CrossOrigin
+    public Iterable<Quiz> getQuizToRespond(@RequestParam Long quizTempId){
+        service.getQuizToRespond(quizTempId);
+        return service.getAllQuizzes();
+    }
+
     @GetMapping("/getAllQuizzes")
     @CrossOrigin
     public Iterable<Quiz> getAllQuizzes() {
