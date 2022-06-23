@@ -99,6 +99,19 @@ class QuizControllerTest {
         assertEquals(HttpStatus.ACCEPTED, response.getStatusCode());
         assertEquals(expectedQuiz, result);
     }
+    @Test
+    void itShouldCallGetQuizToRespondWithQuizTempIdFromServiceAndReturnGetAllQuizzes(){
+        Long quizTempId = 0L;
+        ArrayList<Quiz> expectedQuiz = new ArrayList<>();
+        TestRestTemplate rest = new TestRestTemplate();
+        final String url = "http://localhost:" + port + "/getQuizToRespond?quizTempId=" + quizTempId;
+        doThrow(new ResponseStatusException(HttpStatus.ACCEPTED)).
+                when(service).getQuizToRespond(quizTempId);
+        ResponseEntity<Void> response = rest.getForEntity(url, Void.class);
+        Iterable<Quiz> result = service.getAllQuizzes();
+        assertEquals(HttpStatus.ACCEPTED, response.getStatusCode());
+        assertEquals(expectedQuiz, result);
+    }
 
     @Test
     void itShouldCallAndReturnGetAllQuizzesFromService(){

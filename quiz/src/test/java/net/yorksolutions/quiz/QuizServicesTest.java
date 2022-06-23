@@ -82,6 +82,20 @@ class QuizServicesTest {
         service.deleteQuiz(quizTempId);
         verify(repository).deleteAllByQuizTemplateId(quizTempId);
     }
+    @Test
+    void itShouldFindQuizTemplateIdAndOrderByQuestionNumber(){
+        Long quizTempId = 0L;
+        int questionNumber = 1;
+        String questionText = "some question";
+        String questionType = "text";
+        Quiz someQuiz = new Quiz(quizTempId, questionNumber, questionText, questionType);
+        ArrayList<Quiz> expectedQuiz = new ArrayList<>();
+        expectedQuiz.add(someQuiz);
+        ArgumentCaptor<Long> captor = ArgumentCaptor.forClass(Long.class);
+        when(repository.findByQuizTemplateIdOrderByQuestionNumberAsc(captor.capture())).thenReturn(expectedQuiz);
+        service.getQuizToRespond(quizTempId);
+        assertEquals(quizTempId, captor.getValue());
+    }
 
     @Test
     void itShouldFindAllQuizTempIdAndQuestionNumberInAscendingOrder(){
